@@ -1,0 +1,30 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# VS Code specific
+.vscode/
+*.code-workspace
+
+#
+data/raw/*
+data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# PowerBI temp files (nếu có)
+*.pbix.lck
