@@ -19,7 +19,7 @@ Bản báo cáo **Olist E-commerce Performance Dashboard** cung cấp góc nhìn
 - **Ngôn ngữ truy vấn:** DAX (Data Analysis Expressions)
 
 ## Cấu trúc dự án
-\`\`\`text
+```text
 ├── .doc/                   # Chứa tài liệu thiết kế, rule, CLAUDE.md
 ├── data/                   # Thư mục chứa dữ liệu (đã được ignore trên git)
 │   ├── raw/                # Dữ liệu CSV thô ban đầu
@@ -31,7 +31,6 @@ Bản báo cáo **Olist E-commerce Performance Dashboard** cung cấp góc nhìn
 ├── requirements.txt        # Danh sách thư viện Python cần thiết
 ├── .gitignore              # Các file/thư mục không push lên GitHub
 └── README.md               # Tài liệu mô tả dự án
-\`\`\`
 
 ## Hướng dẫn cài đặt và sử dụng
 
