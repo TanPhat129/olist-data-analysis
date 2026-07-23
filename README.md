@@ -5,6 +5,13 @@ Dự án phân tích dữ liệu toàn diện dựa trên bộ dữ liệu thư�
 
 Dự án phục vụ mục đích phân tích hỗ trợ ra quyết định (Decision Support), giúp tối ưu hóa chuỗi cung ứng và gia tăng tỷ lệ giữ chân khách hàng.
 
+## 📊 Executive Summary & Key Insights
+Bản báo cáo **Olist E-commerce Performance Dashboard** cung cấp góc nhìn toàn diện về hiệu suất kinh doanh, xu hướng doanh thu và phân phối đơn hàng trên nền tảng thương mại điện tử. Dưới đây là các điểm nhấn cốt lõi được rút ra từ dữ liệu:
+* **Đỉnh cao doanh thu (Peak Performance):** Doanh thu đạt mức cao kỷ lục vào giai đoạn cuối năm với giá trị lên tới **$1,020,000**, cho thấy sức hút mạnh mẽ từ các chiến dịch mua sắm lớn và sự tăng trưởng ổn định của nền tảng.
+* **Biểu đồ xu hướng rõ nét:** Biên độ doanh thu tăng trưởng mạnh mẽ từ năm 2016 qua năm 2017 và duy trì mức cao xuyên suốt năm 2018, phản ánh tệp khách hàng ngày càng mở rộng.
+* **Điểm tối thiểu (Lowest Point):** Ghi nhận mức thấp nhất tại các thời điểm khởi đầu hoặc gián đoạn dữ liệu (ở mức **$10,000**), giúp nhận diện các khoảng trống cần tối ưu trong vận hành hoặc chiến lược marketing.
+* **Chỉ số kinh doanh tổng quan:** Tổng giá trị doanh thu đạt **$13.59M** với quy mô **99K orders** và giá trị trung bình mỗi đơn hàng (**AOV**) đạt **$137.75**.
+
 ## Tech Stack & Công cụ
 - **Tiền xử lý dữ liệu (ETL):** Python (Pandas, Numpy)
 - **Môi trường phát triển:** Visual Studio Code, Jupyter Notebook
