@@ -1,61 +1,40 @@
-#  Olist E-Commerce Data Analysis & BI Dashboard
+# Olist E-commerce Data Analysis & BI Dashboard
 
-## Tổng quan dự án
-Dự án phân tích dữ liệu toàn diện dựa trên bộ dữ liệu thương mại điện tử **Olist (Brazil)**. Mục tiêu của dự án là thiết kế quy trình ETL tự động để làm sạch dữ liệu thô, xây dựng mô hình dữ liệu đa chiều (Star Schema), và trực quan hóa các chỉ số kinh doanh cốt lõi (Sales, Churn Rate, Delivery Performance) thông qua PowerBI.
+> Which delivery outcomes, seller and category cohorts, and customer segments are associated with poor reviews, and where should operations investigate first?
 
-Dự án phục vụ mục đích phân tích hỗ trợ ra quyết định (Decision Support), giúp tối ưu hóa chuỗi cung ứng và gia tăng tỷ lệ giữ chân khách hàng.
+This project uses the [Brazilian E-Commerce Public Dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce). The customer-experience analysis complements the existing sales dashboard with reproducible order-level metrics and Power BI-ready tables.
 
-## 📊 Executive Summary & Key Insights
-Bản báo cáo **Olist E-commerce Performance Dashboard** cung cấp góc nhìn toàn diện về hiệu suất kinh doanh, xu hướng doanh thu và phân phối đơn hàng trên nền tảng thương mại điện tử. Dưới đây là các điểm nhấn cốt lõi được rút ra từ dữ liệu:
-* **Đỉnh cao doanh thu (Peak Performance):** Doanh thu đạt mức cao kỷ lục vào giai đoạn cuối năm với giá trị lên tới **$1,020,000**, cho thấy sức hút mạnh mẽ từ các chiến dịch mua sắm lớn và sự tăng trưởng ổn định của nền tảng.
-* **Biểu đồ xu hướng rõ nét:** Biên độ doanh thu tăng trưởng mạnh mẽ từ năm 2016 qua năm 2017 và duy trì mức cao xuyên suốt năm 2018, phản ánh tệp khách hàng ngày càng mở rộng.
-* **Điểm tối thiểu (Lowest Point):** Ghi nhận mức thấp nhất tại các thời điểm khởi đầu hoặc gián đoạn dữ liệu (ở mức **$10,000**), giúp nhận diện các khoảng trống cần tối ưu trong vận hành hoặc chiến lược marketing.
-* **Chỉ số kinh doanh tổng quan:** Tổng giá trị doanh thu đạt **$13.59M** với quy mô **99K orders** và giá trị trung bình mỗi đơn hàng (**AOV**) đạt **$137.75**.
+- [Existing sales dashboard (PDF)](powerbi/Olist_Dashboard.pdf) · [Power BI file](powerbi/Olist_Dashboard.pbix)
+- [Exploratory notebook](notebooks/EDA_Olist.ipynb) · [Customer-experience Power BI build guide](powerbi/customer_experience.md)
 
-## Tech Stack & Công cụ
-- **Tiền xử lý dữ liệu (ETL):** Python (Pandas, Numpy)
-- **Môi trường phát triển:** Visual Studio Code, Jupyter Notebook
-- **Mô hình hóa & Trực quan hóa (BI):** PowerBI Desktop
-- **Ngôn ngữ truy vấn:** DAX (Data Analysis Expressions)
+## Run the analysis
 
-## Cấu trúc dự án
-```text
-├── .doc/                   # Chứa tài liệu thiết kế, rule, CLAUDE.md
-├── data/                   # Thư mục chứa dữ liệu (đã được ignore trên git)
-│   ├── raw/                # Dữ liệu CSV thô ban đầu
-│   └── processed/          # Dữ liệu đã qua xử lý (sẵn sàng cho PowerBI)
-├── notebooks/              # Jupyter notebooks dùng để EDA (Exploratory Data Analysis)
-├── scripts/                # Script Python chạy pipeline ETL
-├── powerbi/                # Thư mục chứa file Dashboard (.pbix)
-├── reports/                # Báo cáo review chéo (AI Generated)
-├── requirements.txt        # Danh sách thư viện Python cần thiết
-├── .gitignore              # Các file/thư mục không push lên GitHub
-└── README.md               # Tài liệu mô tả dự án
+Clone this repository, create a Python environment, and extract the original Olist CSVs into `data/raw/`. Run these commands from the repository root:
+
+```bash
+python -m pip install -r requirements.txt
+python -m src.pipeline
+python -m src.customer_experience
 ```
-## Hướng dẫn cài đặt và sử dụng
 
-### Bước 1: Clone repository
-\`\`\`bash
-git clone <your-github-repo-url>
-cd <your-project-folder>
-\`\`\`
+The existing ETL writes Parquet tables to `data/processed/`. The customer-experience module runs independently and writes CSVs to `data/processed/experience/`. To use another dataset or output directory, pass `--raw-dir` or `--output-dir`.
 
-### Bước 2: Thiết lập môi trường Python
-\`\`\`bash
-python -m venv .venv
-source .venv/bin/activate  
-pip install -r requirements.txt
-\`\`\`
+## Analysis and decisions
 
-### Bước 3: Chạy Data Pipeline
-Đảm bảo bạn đã tải bộ dữ liệu Olist từ Kaggle và đặt các file CSV vào thư mục `data/raw/`.
-Sau đó chạy lệnh:
-\`\`\`bash
-python scripts/main_etl.py
-\`\`\`
-Dữ liệu sạch sẽ được xuất ra thư mục `data/processed/`.
+| Question | Evidence to compare | Decision |
+| --- | --- | --- |
+| Do customers report worse experiences when delivery is slow or late? | 1–2 star rates by delivery outcome and elapsed time, with reviewed-order counts | Review promised-date SLA and investigate high-volume late cohorts |
+| Where is the problem concentrated? | Late rates and order volumes by customer state, plus negative-review rates by seller and category | Prioritize cohorts with both substantial volume and elevated rates |
+| Which customers warrant a closer look? | Review rates, customer counts, and merchandise value by buyer segment | Compare repeat buyers and high-value first-time buyers before designing retention actions |
 
-### Bước 4: Mở Dashboard
-Mở file `powerbi/Olist_Dashboard.pbix` bằng PowerBI Desktop và Refresh dữ liệu nếu cần.
+### Measurement rules
 
----
+- Use one row per order for platform KPIs. If an order has multiple valid reviews, use the latest answer timestamp and break ties by review ID. A negative review scores 1–2 out of 5. The denominator is reviewed orders.
+- Late deliveries are delivered orders with valid elapsed time and both delivery and estimated dates, delivered after the promised calendar day. Missing delivery dates are excluded from the rate. Delivery duration is measured from purchase in elapsed days.
+- Merchandise value in BRL sums item prices, excluding freight. The order-level export includes all statuses, so filter to delivered for a delivered merchandise-value KPI. Merchandise value is distinct from the sum of payment records.
+- Buyer segments are fixed across the full delivered-order history. Repeat buyers have at least two delivered orders. High-value one-time buyers have one delivered order and spend at or above the 75th percentile of delivered buyers' merchandise spend.
+- Seller and category rates use one row per order–entity pair. The same order review can inform multiple sellers or categories. The aggregate quality exports require at least 50 reviewed orders per seller and 100 per category. These are screening signals and may reflect delivery or other factors outside seller control.
+
+The customer-experience exports and page specifications are available in this repository. The linked PBIX and PDF are the existing sales report. Findings should come from running this project's analysis on the source data. The comparisons are descriptive and do not establish causation.
+
+The business-question approach was inspired by [Gia Vy's Olist customer dissatisfaction case study](https://www.facebook.com/groups/nguoilamdata/permalink/3541524962688518/).
